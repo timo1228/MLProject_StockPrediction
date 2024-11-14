@@ -8,7 +8,14 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 
-class DataSet(object):
+from abc import ABC, abstractmethod
+
+class Dataset(ABC):
+    @abstractmethod
+    def train_and_test(self):
+        pass
+
+class YahooDataSet(Dataset):
     def __init__(self):
         path = "./data/nasdq.csv"
         self.inited = False
@@ -66,8 +73,8 @@ class DataSet(object):
 
         self.X_train = X_train_scaled
         self.X_test = X_test_scaled
-        self.y_train = y_train
-        self.y_test = y_test
+        self.y_train = y_train.to_numpy()
+        self.y_test = y_test.to_numpy()
 
         self.inited = True
         print("initializing successfully!")
@@ -108,7 +115,7 @@ class DataSet(object):
 
 
 def test():
-    dataset = DataSet()
+    dataset = YahooDataSet()
     X_train, X_test, y_train, y_test = dataset.train_and_test()
 
     # Train a baseline model
