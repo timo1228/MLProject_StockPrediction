@@ -51,7 +51,7 @@ def Best_SVR_model():
     # 预测
     y_pred_test = svr.predict(X_test)
     y_pred_train = svr.predict(X_train)
-    print(f'mean_squared_error on test set = {mean_squared_error(y_train, y_pred_train)}')
+    print(f'mean_squared_error on train set = {mean_squared_error(y_train, y_pred_train)}')
     print(f'mean_squared_error on test set = {mean_squared_error(y_test, y_pred_test)}')
 
     df_data = dataset.data
