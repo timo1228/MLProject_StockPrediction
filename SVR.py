@@ -51,30 +51,90 @@ def Best_SVR_model():
     # 预测
     y_pred_test = svr.predict(X_test)
     y_pred_train = svr.predict(X_train)
+    print(f'mean_squared_error on test set = {mean_squared_error(y_train, y_pred_train)}')
     print(f'mean_squared_error on test set = {mean_squared_error(y_test, y_pred_test)}')
 
     df_data = dataset.data
-    y_origin = np.concatenate([y_train,  y_test])
-    y_pred_show = np.concatenate([y_pred_train, y_pred_test])
-    # 创建折线图
-    #plt.plot(df_data.index, y_origin, label='Line', color='b', marker='o',linewidth=0.01)  # label 是图例，color 是线条颜色，marker 是数据点的标记
-    #plt.plot(df_data.index, y_pred_show, label='Line', color='r', marker='o', linewidth=0.01)
-
     n_rows = len(df_data)
-    plt.plot(df_data.index[int(0.8 * n_rows):], y_pred_test, label='prediction', color='b', marker='o', linewidth=0.01)  # label 是图例，color 是线条颜色，marker 是数据点的标记
-    plt.plot(df_data.index[int(0.8 * n_rows):], y_test, label='truth', color='r', marker='o', linewidth=0.01)
+    train_indices = df_data.index[0: int(0.8 * n_rows)]
+    test_indices = df_data.index[int(0.8 * n_rows):]
 
+    # 设置画布大小
+    plt.figure(figsize=(12, 6))
 
+    #绘制prediction on training set
+    # 预测值折线图
+    plt.plot(
+        train_indices,
+        y_pred_train,
+        label='Prediction',
+        color='blue',
+        linewidth=1.5,  # 调整线条宽度
+        alpha=0.8  # 设置透明度
+    )
 
-    # 添加标题和标签
-    plt.title('SVR Plot')  # 图表标题
-    plt.xlabel('X Axis')  # X轴标签
-    plt.ylabel('Y Axis')  # Y轴标签
+    # 真实值折线图
+    plt.plot(
+        train_indices,
+        y_train,
+        label='Truth',
+        color='red',
+        linewidth=1.5,  # 调整线条宽度
+        alpha=0.8  # 设置透明度
+    )
 
-    # 显示图例
-    plt.legend()
+    # 设置标题和轴标签
+    plt.title('SVR Prediction vs Truth on Training Set', fontsize=16)  # 标题和字体大小
+    plt.xlabel('Year', fontsize=12)
+    plt.ylabel('Price', fontsize=12)
+
+    # 设置图例
+    plt.legend(fontsize=12)
+
+    # 显示网格线
+    plt.grid(True, linestyle='--', alpha=0.7)
 
     # 显示图形
+    plt.tight_layout()
+    plt.show()
+
+    # 绘制prediction on test set
+    # 设置画布大小
+    plt.figure(figsize=(12, 6))
+
+    # 预测值折线图
+    plt.plot(
+        test_indices,
+        y_pred_test,
+        label='Prediction',
+        color='blue',
+        linewidth=1.5,  # 调整线条宽度
+        alpha=0.8  # 设置透明度
+    )
+
+    # 真实值折线图
+    plt.plot(
+        test_indices,
+        y_test,
+        label='Truth',
+        color='red',
+        linewidth=1.5,  # 调整线条宽度
+        alpha=0.8  # 设置透明度
+    )
+
+    # 设置标题和轴标签
+    plt.title('SVR Prediction vs Truth on Test Set', fontsize=16)  # 标题和字体大小
+    plt.xlabel('Year', fontsize=12)
+    plt.ylabel('Price', fontsize=12)
+
+    # 设置图例
+    plt.legend(fontsize=12)
+
+    # 显示网格线
+    plt.grid(True, linestyle='--', alpha=0.7)
+
+    # 显示图形
+    plt.tight_layout()
     plt.show()
 
 """
