@@ -36,14 +36,21 @@ class YahooDataSet(Dataset):
         data['Volatility'] = data['Close'].rolling(window=30).std()
         # rolling(window=30) 进行滚动窗口操作。 mean() 计算每个30天窗口内 Close 价格的均值。
         data['Rolling_Mean_Close'] = data['Close'].rolling(window=30).mean()
+
+        # 将目标变量向上移动一行，使其预测下一天的收盘价
+        data['Next_Day_Close'] = data['Close'].shift(-1)
+        # 删除缺失值（由于计算滚动窗口和 shift 产生的 NaN）
         data.dropna(inplace=True)
 
         self.data = data
 
         # Train-Test Split and Scaling
         # Define target variable and features
-        X = data.drop(['Close'], axis=1)  # Ensure 'Close' is dropped to create the feature set
-        y = data['Close']  # Target variable is 'Close' price
+        #X = data.drop(['Close'], axis=1)  # Ensure 'Close' is dropped to create the feature set
+        #y = data['Close']  # Target variable is 'Close' price
+
+        X = data.drop(['Close', 'Next_Day_Close'], axis=1)  # 去掉当前的 Close 和目标列
+        y = data['Next_Day_Close']  # 目标变量为下一天的 Close
 
         # Step 1: Replace infinite values with NaN
         X.replace([np.inf, -np.inf], np.nan, inplace=True)
