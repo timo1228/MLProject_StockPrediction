@@ -17,7 +17,7 @@ class Dataset(ABC):
 
 class YahooDataSet(Dataset):
     def __init__(self):
-        path = "./data/nasdq.csv"
+        path = "./SVR_XGBoost/data/nasdq.csv"
         self.inited = False
         #init the data
         data = pd.read_csv(path)
@@ -125,16 +125,7 @@ def test():
     dataset = YahooDataSet()
     X_train, X_test, y_train, y_test = dataset.train_and_test()
 
-    # Train a baseline model
-    lr = LinearRegression()
-    lr.fit(X_train, y_train)
-
-    # Make predictions
-    y_pred_lr = lr.predict(X_test)
-
-    # Evaluate the model
-    print("Linear Regression R2 Score:", r2_score(y_test, y_pred_lr))
-    print("Linear Regression RMSE:", mean_squared_error(y_test, y_pred_lr, squared=False))
+    print("Dataset Correct")
 
 
 if __name__ == "__main__":
