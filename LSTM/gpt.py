@@ -73,7 +73,7 @@ test_dataset = PricePredictionTextDataset(X_test_df, y_test, tokenizer, seq_len=
 
 # Training arguments
 training_args = TrainingArguments(
-    output_dir="./gpt_price_model",
+    output_dir="./LSTM/gpt_price_model",
     overwrite_output_dir=True,
     num_train_epochs=3,
     per_device_train_batch_size=2,

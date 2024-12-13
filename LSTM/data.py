@@ -17,7 +17,7 @@ class Dataset(ABC):
 
 class YahooDataSet(Dataset):
     def __init__(self):
-        path = "./data/nasdq.csv"
+        path = "./LSTM/data/nasdq.csv"
         self.inited = False
         # Initialize the data
         data = pd.read_csv(path)
