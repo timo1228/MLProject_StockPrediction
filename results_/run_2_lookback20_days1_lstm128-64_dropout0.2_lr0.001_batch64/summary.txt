@@ -1,0 +1,14 @@
+Run #2
+Look_back: 20
+Days_to_predict: 1
+LSTM units: 128, 64
+Dropout: 0.2
+Learning rate: 0.001
+Batch size: 64
+LSTM Test MSE: 467.75179986851873
+LSTM Test RMSE: 21.62757036443342
+Naive Test MSE: 1.4903131295475849
+Naive Test RMSE: 1.2207838176956578
+LSTM Train MSE: 0.6194729246201248
+LSTM Train RMSE: 0.787066023037537
+Training sequence prediction debug completed.
